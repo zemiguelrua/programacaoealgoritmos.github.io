@@ -4,33 +4,36 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameMain extends ApplicationAdapter {
     private SpriteBatch batch;
     private Player player;
     private Map map;
+    private List<Enemy> enemies;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
 
         map = new Map();
-
         player = new Player(map);
 
-//        if (map instanceof Map) {
-//            player.x = 0;
-//            player.y = Gdx.graphics.getHeight() / 2;
-//        } else {
+        enemies = new ArrayList<>();
+        enemies.add(new Rat(100, 100));
+        enemies.add(new Bat(300, 150));
+        enemies.add(new Ghost(500, 200));
+        enemies.add(new Spider(400, 100));
+        enemies.add(new Boss(600, 300));
+
         player.x = 0;
         player.y = 242;
-//        }
     }
 
     @Override
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-
         player.update(deltaTime);
 
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
@@ -39,6 +42,12 @@ public class GameMain extends ApplicationAdapter {
         batch.begin();
         map.render(batch);
         player.render(batch);
+
+        for (Enemy enemy : enemies) {
+            enemy.update(player.x, player.y);
+            enemy.render(batch);
+        }
+
         batch.end();
     }
 
@@ -47,5 +56,6 @@ public class GameMain extends ApplicationAdapter {
         batch.dispose();
         player.dispose();
         map.dispose();
+        for (Enemy enemy : enemies) enemy.dispose();
     }
 }
