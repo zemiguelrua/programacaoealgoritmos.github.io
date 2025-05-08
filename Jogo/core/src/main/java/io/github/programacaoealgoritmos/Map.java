@@ -90,7 +90,6 @@ public class Map {
             return true;
         }
 
-        // Para debug
         if (layout[y][x] == 1) {
             System.out.println("wall detected: " + x + "," + y);
         }

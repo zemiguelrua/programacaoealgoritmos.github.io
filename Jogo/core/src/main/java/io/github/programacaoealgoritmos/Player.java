@@ -25,10 +25,21 @@ public class Player {
         float oldX = x;
         float oldY = y;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) y += speed * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= speed * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= speed * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) x += speed * delta;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            y += speed * delta;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            y -= speed * delta;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            x -= speed * delta;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            x += speed * delta;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            // Insert logic for attack
+        }
 
         if (checkCollision()) {
             x = oldX;
