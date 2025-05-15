@@ -21,11 +21,11 @@ public class GameMain extends ApplicationAdapter {
         player = new Player(map);
 
         enemies = new ArrayList<>();
-        enemies.add(new Rat(100, 100));
+        enemies.add(new Rat(100, 220));
         enemies.add(new Bat(300, 150));
         enemies.add(new Ghost(500, 200));
         enemies.add(new Spider(400, 100));
-        enemies.add(new Boss(600, 300));
+        enemies.add(new Boss(600, 230));
 
         player.x = 0;
         player.y = 242;
