@@ -74,7 +74,7 @@ public class Player {
         batch.draw(texture, x, y); // draws the players sprite in the position x and y
     }
 
-//    Dispose players texture to avoid memory leaks
+//    Disposes players texture to avoid memory leaks
     public void dispose() {
         texture.dispose();
     }
