@@ -1,9 +1,9 @@
 package io.github.programacaoealgoritmos;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.programacaoealgoritmos.commands.InputHandler;
+
 
 public class Player {
     public float x, y;
@@ -12,39 +12,27 @@ public class Player {
     private final float width, height;
     private Map map;
 
+    // Uses InputHandler to map key inputs to commands
+    private final InputHandler inputHandler = new InputHandler();
+
     public Player(Map map) {
         texture = new Texture("player.png"); // Sets a sprite in folder assets for the player
 //      Sets width and height based on the loaded texture's dimensions.
         width = texture.getWidth();
         height = texture.getHeight();
-//        reference the player to the map
+//      references the player to the map
         this.map = map;
     }
 
-//    Method to update the player state
+//  Updates the player state
     public void update(float delta) {
 //      Saves the current player position coordinates for collision handling
         float oldX = x;
         float oldY = y;
 
-        float move = speed * delta;
-//      Manages what each key pressing does
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            y += move;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            y -= move;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            x -= move;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            x += move;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            // Insert logic for attack
-        }
-//      if a collision happens, revert the player position to the last one
+        // Handles inputs
+        inputHandler.handleInput(this, delta);
+
         if (checkCollision()) {
             x = oldX;
             y = oldY;
@@ -62,7 +50,7 @@ public class Player {
 
 
         // Check for a wall at each of the player's corners
-        // If any of these positions has a wall, return true (collision detected)
+        // If any of these positions has a wall, return true
         return map.hasWallAt(left, bottom)  // bottom-left corner
             || map.hasWallAt(right, bottom) // bottom-right corner
             || map.hasWallAt(left, top)     // top-left corner
@@ -73,7 +61,9 @@ public class Player {
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y); // draws the players sprite in the position x and y
     }
-
+    public float getSpeed() {
+        return speed;
+    }
 //    Disposes players texture to avoid memory leaks
     public void dispose() {
         texture.dispose();
