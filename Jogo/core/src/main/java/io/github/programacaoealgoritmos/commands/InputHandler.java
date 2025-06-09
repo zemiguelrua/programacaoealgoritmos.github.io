@@ -3,6 +3,13 @@ package io.github.programacaoealgoritmos.commands;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import io.github.programacaoealgoritmos.Player;
+import io.github.programacaoealgoritmos.commands.combat.AttackCommand;
+import io.github.programacaoealgoritmos.commands.combat.UseShieldCommand;
+import io.github.programacaoealgoritmos.commands.movement.MoveDownCommand;
+import io.github.programacaoealgoritmos.commands.movement.MoveLeftCommand;
+import io.github.programacaoealgoritmos.commands.movement.MoveRightCommand;
+import io.github.programacaoealgoritmos.commands.movement.MoveUpCommand;
+import io.github.programacaoealgoritmos.commands.useitem.DrinkPotionCommand;
 
 public class InputHandler {
 
@@ -10,8 +17,11 @@ public class InputHandler {
     private final Command moveDown = new MoveDownCommand();
     private final Command moveLeft = new MoveLeftCommand();
     private final Command moveRight = new MoveRightCommand();
+    private final Command attack = new AttackCommand();
+    private final Command useShield = new UseShieldCommand();
+    private final Command drinkPotion = new DrinkPotionCommand();
 
-    // Called by Player to process input and move using commands
+    // Called by Player to process inputs and move using commands
     public void handleInput(Player player, float delta) {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             moveUp.execute(player, delta);
@@ -24,6 +34,15 @@ public class InputHandler {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight.execute(player, delta);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            attack.execute(player, delta);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            useShield.execute(player, delta);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+            drinkPotion.execute(player, delta);
         }
     }
 }

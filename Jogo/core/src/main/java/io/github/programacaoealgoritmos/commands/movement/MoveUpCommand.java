@@ -1,6 +1,7 @@
-package io.github.programacaoealgoritmos.commands;
+package io.github.programacaoealgoritmos.commands.movement;
 
 import io.github.programacaoealgoritmos.Player;
+import io.github.programacaoealgoritmos.commands.Command;
 
 // Moves the player up
 public class MoveUpCommand implements Command {
