@@ -7,6 +7,7 @@ public class Enemy {
     protected float x, y; // Enemy's position on the screen
     protected Texture texture;
     protected float speed = 1f; // Sets default movement speed of the enemy
+    protected float agroRadius = 70f;
 
     public float getX() {
         return x;
@@ -38,7 +39,8 @@ public class Enemy {
         // Calculates the-line distance to the player
         float length = (float) Math.sqrt(dx * dx + dy * dy);
         // Defines default distance for enemy agro
-        float agroRadius = 50f;
+
+//        float agroRadius = 70f;
 
         // If the player is within agro range, moves the enemy toward the player
         if (length <= agroRadius) {
