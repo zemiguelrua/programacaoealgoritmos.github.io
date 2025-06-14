@@ -29,6 +29,9 @@ public class GameMain extends ApplicationAdapter {
         enemies.add(new Spider(400, 100));
         enemies.add(new Boss(600, 230));
 
+        // IMPORTANT: Set the enemies list in the player object
+        player.setEnemies(enemies);
+
         // Sets player's starting position on the map
         player.x = 0;
         player.y = 242;

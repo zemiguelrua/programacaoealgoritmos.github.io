@@ -8,11 +8,25 @@ public class Enemy {
     protected Texture texture;
     protected float speed = 1f; // Sets default movement speed of the enemy
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     // Constructor to set the enemy's position and texture
     public Enemy(float x, float y, String texturePath) {
         this.x = x;
         this.y = y;
         this.texture = new Texture(texturePath);
+    }
+
+    // Enemy.java
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
 
     // Moves the enemy toward the player if within agro range

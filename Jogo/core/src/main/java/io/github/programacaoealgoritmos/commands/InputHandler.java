@@ -19,10 +19,21 @@ public class InputHandler {
     private final Command moveRight = new MoveRightCommand();
     private final Command attack = new AttackCommand();
     private final Command useShield = new UseShieldCommand();
-    private final Command drinkPotion = new DrinkPotionCommand();
+    private final DrinkPotionCommand drinkPotion = new DrinkPotionCommand();
+
+    private boolean potionKeyPressed = false;
 
     // Called by Player to process inputs and move using commands
     public void handleInput(Player player, float delta) {
+        // Handle shield first - it affects movement
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            useShield.execute(player, delta);
+        } else {
+            // Turn off shield when key is released
+            player.setShielding(false);
+        }
+
+        // Movement commands (these check if shielding internally)
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             moveUp.execute(player, delta);
         }
@@ -35,14 +46,23 @@ public class InputHandler {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight.execute(player, delta);
         }
+
+        // Attack command
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             attack.execute(player, delta);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-            useShield.execute(player, delta);
-        }
+
+        // Potion command (only once per key press)
         if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
-            drinkPotion.execute(player, delta);
+            if (!potionKeyPressed) {
+                drinkPotion.execute(player, delta);
+                potionKeyPressed = true;
+            }
+        } else {
+            if (potionKeyPressed) {
+                drinkPotion.reset();
+                potionKeyPressed = false;
+            }
         }
     }
 }

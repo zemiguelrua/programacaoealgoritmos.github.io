@@ -11,7 +11,7 @@ public class Map {
     private Texture wallTexture;
 
     public Map() {
-        // Loads textures from assets
+        // Loads textures from assetsF
         floorTexture = new Texture("floor.png");
         wallTexture = new Texture("wall.png");
         // Calculates the number of tiles in X and Y directions based on screen size
